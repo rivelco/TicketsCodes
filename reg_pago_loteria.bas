@@ -1,4 +1,3 @@
-Attribute VB_Name = "Módulo6"
 ' Este programa fue desarrollado por Ricardo Velázquez Contreras
 ' Publicación original y licencia en GitHub https://github.com/rivelco
 
@@ -20,6 +19,12 @@ numero = Sheets("Pagar lotería").Cells(7, 9)
 nombre = Sheets("Pagar lotería").Cells(5, 3)
 iniciales = Sheets("Pagar lotería").Cells(7, 3)
 devueltos = Sheets("Pagar lotería").Cells(9, 3)
+
+If IsEmpty(numero) Or IsEmpty(nombre) Or IsEmpty(iniciales) Or IsEmpty(devueltos) Then
+    MsgBox "Faltan campos por completar. No hice nada."
+    Exit Sub
+End If
+
 vendidos = iniciales - devueltos
 vendidosT = iniciales - Sheets("Pagar lotería").Cells(11, 3)
 diferencia = vendidosT - vendidos

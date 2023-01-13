@@ -1,4 +1,3 @@
-Attribute VB_Name = "Módulo2"
 ' Este programa fue desarrollado por Ricardo Velázquez Contreras
 ' Publicación original y licencia en GitHub https://github.com/rivelco
 
@@ -14,6 +13,13 @@ ultLinea = Sheets("Info rápidos").Range("A" & Rows.Count).End(xlUp).Row
 nombre = Sheets("Registro rápidos").Cells(5, 2)
 codigo = Sheets("Registro rápidos").Cells(5, 3)
 cant = Sheets("Registro rápidos").Cells(5, 4)
+cost = Sheets("Registro rápidos").Cells(5, 5)
+
+If IsEmpty(nombre) Or IsEmpty(codigo) Or IsEmpty(cant) Or IsEmpty(cost) Then
+    MsgBox "Faltan campos por completar. No hice nada."
+    Exit Sub
+End If
+
 For cont = 1 To ultLinea
     current = Sheets("Info rápidos").Cells(cont, 1)
     If nombre = current Then
@@ -21,6 +27,7 @@ For cont = 1 To ultLinea
         Sheets("Info rápidos").Cells(cont, 4) = anterior + cant
         anterior = Sheets("Info rápidos").Cells(cont, 3)
         Sheets("Info rápidos").Cells(cont, 3) = anterior + cant
+        Sheets("Info rápidos").Cells(cont, 2) = cost
     End If
 Next cont
 Sheets("Info rápidos").Protect Password:="", AllowFiltering:=True
@@ -32,9 +39,9 @@ Sheets(ws_output).Cells(ultLinea, 1).Value = Now
 Sheets(ws_output).Cells(ultLinea, 2).Value = nombre
 Sheets(ws_output).Cells(ultLinea, 3).Value = codigo
 Sheets(ws_output).Cells(ultLinea, 4).Value = cant
-Sheets(ws_output).Cells(ultLinea, 5).Value = 1000
+Sheets(ws_output).Cells(ultLinea, 5).Value = cant * cost
 Sheets(ws_output).Protect Password:="", AllowFiltering:=True
 
-Sheets("Registro rápidos").Range("B5:D5").ClearContents
+Sheets("Registro rápidos").Range("B5:E5").ClearContents
 ActiveWorkbook.Save
 End Sub
